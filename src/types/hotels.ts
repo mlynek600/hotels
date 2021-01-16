@@ -3,7 +3,7 @@ export type HotelType = {
   name: string
   subtitle: string
   price: string
-  imageUrl: string
+  image: string
 }
 
 export type HotelsDataType = HotelType[] | null

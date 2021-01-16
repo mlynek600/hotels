@@ -18,7 +18,7 @@ const HotelCards: React.FC = () => {
           name={name}
           subtitle={subtitle}
           price={price}
-          imageUrl={image}
+          image={image}
         />
       )
     })
