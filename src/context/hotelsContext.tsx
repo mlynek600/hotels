@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { HotelsDataType } from '../types/hotels'
 
-export const HotelsContextData = React.createContext<HotelsDataType | null>(
-  null
-)
+export const HotelsContextData = React.createContext<{
+  hotels: HotelsDataType | null
+  onChangeNightsNumber?: (
+    name: string,
+    nights: number,
+    totalPrice: number
+  ) => void
+}>({ hotels: null })
 
 export const HotelsContext: React.FC = props => {
   const [hotelsData, setHotelsData] = useState<HotelsDataType>(null)
@@ -20,8 +25,28 @@ export const HotelsContext: React.FC = props => {
       })
   }, [])
 
+  const onChangeNightsNumber = (
+    name: string,
+    nights: number,
+    totalPrice: number
+  ) => {
+    if (hotelsData) {
+      const updatedHotels = hotelsData.map(hotel => {
+        if (hotel.name === name) {
+          hotel.nightsNumber = nights
+          hotel.totalPrice = totalPrice
+        }
+        return hotel
+      })
+
+      setHotelsData(updatedHotels)
+    }
+  }
+
   return (
-    <HotelsContextData.Provider value={hotelsData}>
+    <HotelsContextData.Provider
+      value={{ hotels: hotelsData, onChangeNightsNumber }}
+    >
       {props.children}
     </HotelsContextData.Provider>
   )

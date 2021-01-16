@@ -23,7 +23,7 @@ module.exports = {
         avoidEscape: true,
       },
     ],
-    indent: ['error', 2, { SwitchCase: 1 }],
+    // indent: ['error', 2, { SwitchCase: 1 }],
     'prettier/prettier': [
       'error',
       {

@@ -1,15 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
-import { HotelType } from '../../types/hotels'
+import { HotelsContextData } from '../../context/hotelsContext'
 
-const HotelCard: React.FC<HotelType> = ({
+type HotelCardProps = {
+  id: string
+  image: string
+  name: string
+  price: string
+  subtitle: string
+}
+
+const HotelCard: React.FC<HotelCardProps> = ({
   image,
   name,
   price,
   subtitle,
 }) => {
+  const hotelsData = useContext(HotelsContextData)
+
   const [nightsCounter, setNightsCounter] = useState(0)
 
+  const hotelPrice = nightsCounter * Number(price)
+
+  const updateContext = hotelsData.onChangeNightsNumber
+
+  useEffect(() => {
+    updateContext && updateContext(name, nightsCounter, hotelPrice)
+  }, [nightsCounter])
+
+  // because of lorempixel images problems
   const imageLink = image.replace('pixel', 'flickr')
 
   const uppercaseFirst = (text: string) =>
@@ -23,8 +42,6 @@ const HotelCard: React.FC<HotelType> = ({
   }
   const onPlusButtonClick = () => setNightsCounter(nightsCounter + 1)
 
-  const totalAmount = Number(price) * nightsCounter
-
   return (
     <Card>
       <ImageContainer>
@@ -32,19 +49,24 @@ const HotelCard: React.FC<HotelType> = ({
       </ImageContainer>
 
       <InfoContainer>
-        <Title>{title}</Title>
+        <Title>{title} Hotel</Title>
 
         <SubTitle>{description}</SubTitle>
       </InfoContainer>
 
       <PriceContainer>
-        <MinusButton onClick={onMinusButtonClick}>-</MinusButton>
+        <MinusButton
+          onClick={onMinusButtonClick}
+          disabled={nightsCounter === 0}
+        >
+          -
+        </MinusButton>
 
         <NightsNumber>{nightsCounter}</NightsNumber>
 
         <PlusButton onClick={onPlusButtonClick}>+</PlusButton>
 
-        <Price>{totalAmount} $</Price>
+        <Price>{hotelPrice} $</Price>
       </PriceContainer>
     </Card>
   )
@@ -57,6 +79,7 @@ const Card = styled.div`
   display: flex;
   height: 120px;
   align-items: center;
+  position: relative;
 
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -88,6 +111,9 @@ const PriceContainer = styled.div`
   padding-left: 50px;
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 20px;
+  width: 200px;
 `
 
 const MinusButton = styled.button`
