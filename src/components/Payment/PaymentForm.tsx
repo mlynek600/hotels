@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
+import { ToastComponent } from '../Toast/Toast'
+
 const PaymentForm: React.FC = () => {
+  const formRef = useRef<HTMLFormElement>(null)
+
   const labels = ['Name*', 'Address*', 'Phone', 'E-mail*']
 
   const nameInput = (
@@ -29,13 +34,26 @@ const PaymentForm: React.FC = () => {
     </Row>
   ))
 
+  const toastMsg = <ToastMessage>Thank you for your order!</ToastMessage>
+
+  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    toast(toastMsg)
+
+    formRef.current?.reset()
+  }
+
   return (
     <Wrapper>
-      <Form>
+      <Title>Payment</Title>
+      <Form ref={formRef} onSubmit={event => onFormSubmit(event)}>
         {rowsElements}
 
         <SubmitButton type="submit">Pay</SubmitButton>
       </Form>
+
+      {ToastComponent}
     </Wrapper>
   )
 }
@@ -45,6 +63,13 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+`
+
+const Title = styled.h1`
+  margin-bottom: 20px;
+  font-family: ${({ theme }) => theme.fonts.semiBold};
+  color: ${({ theme }) => theme.colors.purple};
 `
 
 const Form = styled.form`
@@ -104,30 +129,19 @@ const Label = styled.label`
 const Input = styled.input`
   width: 200px;
   padding: 10px;
-  border: 1px solid #f3f3f3;
   border-radius: 4px;
   color: ${({ theme }) => theme.colors.grey};
   background-color: ${({ theme }) => theme.colors.cloud};
   font-size: ${({ theme }) => theme.fontSize.verySmall};
 
   :focus {
-    border-color: ${({ theme }) => theme.colors.purple};
     :invalid {
-      border-color: ${({ theme }) => theme.colors.red};
+      box-shadow: 0 1px 6px 0 rgba(222, 53, 76, 0.5);
+    }
+    :valid {
+      box-shadow: 0 1px 6px 0 rgba(60, 24, 116, 0.5);
     }
   }
-
-  :required {
-    box-shadow: none;
-  }
-
-  ::-webkit-inner-spin-button,
-  ::-webkit-outer-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0 !important;
-  }
-
-  -moz-appearance: textfield !important;
 
   @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
     width: 240px;
@@ -160,6 +174,10 @@ const SubmitButton = styled.button`
     height: 40px;
     width: 200px;
   }
+`
+
+const ToastMessage = styled.p`
+  color: ${({ theme }) => theme.colors.purple};
 `
 
 export default PaymentForm

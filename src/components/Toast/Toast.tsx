@@ -9,7 +9,21 @@ type ToastProps = {
   error?: string
 }
 
-const Toast: React.FC<ToastProps> = ({ message, error }) => {
+export const ToastComponent = (
+  <ToastContainer
+    position="bottom-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+  />
+)
+
+export const Toast: React.FC<ToastProps> = ({ message, error }) => {
   const toastInfo = (
     <Wrapper>
       <p>{message}</p>
@@ -20,19 +34,7 @@ const Toast: React.FC<ToastProps> = ({ message, error }) => {
     toast(toastInfo)
   }, [])
 
-  return (
-    <ToastContainer
-      position="bottom-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-    />
-  )
+  return ToastComponent
 }
 
 const Wrapper = styled.div`
@@ -42,5 +44,3 @@ const Wrapper = styled.div`
 const Error = styled.p`
   color: ${({ theme }) => theme.colors.red};
 `
-
-export default Toast

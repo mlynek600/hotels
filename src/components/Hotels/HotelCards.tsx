@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { HotelsContextData } from '../../context/hotelsContext'
 
-import Toast from '../Toast/Toast'
+import { Toast } from '../Toast/Toast'
 
 import HotelCard from './HotelCard'
 
