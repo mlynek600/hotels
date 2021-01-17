@@ -13,6 +13,7 @@ export const HotelsContextData = React.createContext<{
     nights: number,
     totalPrice: number
   ) => void
+  getHotels?: () => void
   removeHotelCard?: (id: string) => void
 }>({ hotels: null, error: null })
 
@@ -21,15 +22,28 @@ export const HotelsContext: React.FC = props => {
 
   const [error, setError] = useState<Error | null>(null)
 
-  useEffect(() => {
+  const getHotels = () => {
+    setHotelsData(null)
+
     axios
       .get('https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotels')
       .then(response => {
-        setHotelsData(response.data)
+        const randomFourHotels = []
+        for (let i = 0; i < 4; i++) {
+          const randomHotel =
+            response.data[Math.floor(Math.random() * response.data.length)]
+
+          randomFourHotels.push(randomHotel)
+        }
+        setHotelsData(randomFourHotels)
       })
       .catch(error => {
         setError(error)
       })
+  }
+
+  useEffect(() => {
+    getHotels()
   }, [])
 
   const changeNightsAndPrice = (
@@ -64,6 +78,7 @@ export const HotelsContext: React.FC = props => {
         hotels: hotelsData,
         error: error,
         changeNightsAndPrice,
+        getHotels,
         removeHotelCard,
       }}
     >

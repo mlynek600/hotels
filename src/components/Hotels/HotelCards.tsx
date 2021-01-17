@@ -12,7 +12,7 @@ import HotelCard from './HotelCard'
 const HotelCards: React.FC = () => {
   const hotelsData = useContext(HotelsContextData)
 
-  const { hotels, error } = hotelsData
+  const { hotels, error, getHotels } = hotelsData
 
   const getTotalOrderPrice = () => {
     let result = 0
@@ -53,6 +53,10 @@ const HotelCards: React.FC = () => {
 
       {hotels && (
         <ContentContainer>
+          <ChangeHotelsButton onClick={() => getHotels && getHotels()}>
+            <ChangeButtonText>Change hotels</ChangeButtonText>
+          </ChangeHotelsButton>
+
           <TotalContainer>
             <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
 
@@ -140,5 +144,29 @@ const BuyButton = styled.button`
     width: 140px;
   }
 `
+
+const ChangeHotelsButton = styled.button`
+  height: 30px;
+  width: 120px;
+  margin-top: 15px;
+  margin-left: 25px;
+  position: absolute;
+  border-radius: 15px;
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.deepRed};
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.2s ease-in-out;
+
+  :hover {
+    box-shadow: 0 4px 10px 0 ${({ theme }) => theme.colors.white};
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+`
+
+const ChangeButtonText = styled.p``
 
 export default HotelCards

@@ -122,7 +122,7 @@ const Card = styled.div`
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     height: 120px;
-    width: 600px;
+    width: 650px;
   }
 `
 
@@ -152,7 +152,8 @@ const InfoContainer = styled.div`
 
 const Image = styled.img`
   height: 70px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10%;
+  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.2);
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     height: 90px;
@@ -200,13 +201,17 @@ const CostsContainer = styled.div`
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     width: 250px;
-    right: 0px;
-    bottom: 35px;
+    right: 5px;
+    bottom: 10px;
   }
 `
 
 const MinusButton = styled.button`
-  padding-bottom: 3px;
+  height: 15px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: ${({ theme }) => theme.fontSize.s20};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
@@ -216,8 +221,12 @@ const MinusButton = styled.button`
 `
 
 const PlusButton = styled.button`
-  padding-bottom: 2px;
+  height: 15px;
+  width: 20px;
   font-size: ${({ theme }) => theme.fontSize.s20};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     font-size: ${({ theme }) => theme.fontSize.s25};
@@ -225,7 +234,7 @@ const PlusButton = styled.button`
 `
 
 const NightsNumber = styled.p`
-  padding: 0 5px;
+  padding: 0 10px;
   font-size: ${({ theme }) => theme.fontSize.text};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
