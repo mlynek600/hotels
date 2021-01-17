@@ -1,4 +1,4 @@
-# Star Wars viewer
+# Hotels app
 
 ## Table of contents
 
