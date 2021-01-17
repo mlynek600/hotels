@@ -1,13 +1,37 @@
-# gatsby-starter-typescript
-The [default Gatsby starter](https://github.com/gatsbyjs/gatsby-starter-default) converted to [TypeScript](https://www.typescriptlang.org/).
+# Hotels app
 
-For an overview of the project structure please refer to the [Gatsby documentation - Building with Components](https://www.gatsbyjs.org/docs/building-with-components/)
+## Table of contents
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-```
-gatsby new gatsby-starter-typescript https://github.com/haysclark/gatsby-starter-typescript
-```
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Setup](#setup)
 
-## Deploy
+## General info
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/haysclark/gatsby-starter-typescript)
+Hotels ordering app.
+
+## Technologies
+
+Project is created with:
+
+- React
+- React Context API
+- TypeScript
+- Gatsby.js
+- styled-components
+- mock API / Faker.js
+- Axios
+
+## Setup
+
+Clone the project.
+
+Install all packages:
+
+### `npm i`
+
+To start developing, run:
+
+### `gatsby develop`
+
+Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
