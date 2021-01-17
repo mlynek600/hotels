@@ -49,6 +49,7 @@ const HotelCards: React.FC = () => {
   return (
     <Wrapper>
       <Title>Hotels Ordering</Title>
+
       {cardElements}
 
       {hotels && (
@@ -68,7 +69,6 @@ const HotelCards: React.FC = () => {
           </TotalContainer>
         </ContentContainer>
       )}
-
       {toastElement}
     </Wrapper>
   )

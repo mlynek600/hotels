@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import styled from 'styled-components'
 
 import { HotelsContextData } from '../../context/hotelsContext'
@@ -23,6 +24,11 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const hotelsData = useContext(HotelsContextData)
 
   const [nightsCounter, setNightsCounter] = useState(0)
+
+  const [isImageLoaded, setImageLoaded] = useState(false)
+
+  const cardRef = useRef<HTMLDivElement>(null)
+  const imageContainerRef = useRef<HTMLDivElement>(null)
 
   const hotelPrice = nightsCounter * Number(price)
 
@@ -52,12 +58,19 @@ const HotelCard: React.FC<HotelCardProps> = ({
     removeHotelCard && removeHotelCard(id)
   }
 
-  return (
-    <Card>
-      <ImageContainer>
-        <Image src={imageLink}></Image>
-      </ImageContainer>
+  const imageElement = (
+    <ImageContainer ref={imageContainerRef}>
+      <Image
+        src={imageLink}
+        onLoad={() => {
+          setImageLoaded(true)
+        }}
+      ></Image>
+    </ImageContainer>
+  )
 
+  const cardContent = (
+    <>
       <InfoContainer>
         <Title>{title} Hotel</Title>
 
@@ -91,6 +104,29 @@ const HotelCard: React.FC<HotelCardProps> = ({
       <RemoveIconContainer onClick={onRemoveButtonClick}>
         <RemoveIcon />
       </RemoveIconContainer>
+    </>
+  )
+
+  const cardHeight = cardRef.current?.clientHeight
+  const cardWidth = cardRef.current?.clientWidth
+
+  const imageContainerWidth = imageContainerRef.current?.clientWidth
+
+  const skeletonElement = (
+    <SkeletonTheme color="#FFF" highlightColor="#F3F3F3">
+      <Skeleton
+        style={{ paddingTop: '10px' }}
+        height={(cardHeight || 0) * 0.88}
+        width={(cardWidth || 0) - (imageContainerWidth || 0)}
+      />
+    </SkeletonTheme>
+  )
+
+  return (
+    <Card ref={cardRef}>
+      {imageElement}
+
+      {isImageLoaded ? cardContent : skeletonElement}
     </Card>
   )
 }
