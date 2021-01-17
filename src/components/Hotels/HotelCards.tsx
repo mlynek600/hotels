@@ -117,11 +117,19 @@ const TotalAmount = styled.div`
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     font-size: ${({ theme }) => theme.fontSize.smallTitle};
   }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    margin-right: 0px;
+  }
 `
 
 const LinkContainer = styled.div`
   margin-right: 30px;
   margin-bottom: 50px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    margin-right: 0px;
+  }
 `
 
 const BuyButton = styled.button`
@@ -148,7 +156,7 @@ const BuyButton = styled.button`
 const ChangeHotelsButton = styled.button`
   height: 30px;
   width: 120px;
-  margin-top: 15px;
+  margin-top: 25px;
   margin-left: 25px;
   position: absolute;
   border-radius: 15px;
@@ -162,8 +170,8 @@ const ChangeHotelsButton = styled.button`
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    margin-top: 5px;
-    margin-left: 5px;
+    margin-top: 25px;
+    margin-left: 0px;
   }
 `
 

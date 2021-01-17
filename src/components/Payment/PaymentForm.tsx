@@ -59,7 +59,7 @@ const PaymentForm: React.FC = () => {
 }
 
 const Wrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +67,7 @@ const Wrapper = styled.div`
 `
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-family: ${({ theme }) => theme.fonts.semiBold};
   color: ${({ theme }) => theme.colors.purple};
 `

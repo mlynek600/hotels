@@ -97,7 +97,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
         </ChangeNightsContainer>
 
         <PriceContainer>
-          <Price>{hotelPrice} $</Price>
+          <Price>{hotelPrice}</Price>
+          <Currency>$</Currency>
         </PriceContainer>
       </CostsContainer>
 
@@ -217,22 +218,41 @@ const SubTitle = styled.p`
   }
 `
 
-const Price = styled.p`
-  margin-left: 20px;
+const PriceContainer = styled.div`
+  width: 100px;
+  margin-right: 15px;
+  padding-bottom: 1px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: ${({ theme }) => theme.fontSize.semiText};
+
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.m}) {
+    font-size: ${({ theme }) => theme.fontSize.text};
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.s20};
+  }
+`
+
+const Price = styled.p``
+
+const Currency = styled.p`
+  margin-left: 5px;
 `
 
 const CostsContainer = styled.div`
   width: 200px;
-  padding-left: 50px;
+  padding-left: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: absolute;
   bottom: 7px;
-  right: 30px;
+  right: 0px;
 
-  @media (min-width: ${({ theme }) => theme.rwd.mobile.m}) {
-    right: 20px;
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+    padding-left: 20px;
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
@@ -271,6 +291,8 @@ const PlusButton = styled.button`
 
 const NightsNumber = styled.p`
   padding: 0 10px;
+  width: 15px;
+  color: ${({ theme }) => theme.colors.grey};
   font-size: ${({ theme }) => theme.fontSize.text};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
@@ -282,17 +304,6 @@ const ChangeNightsContainer = styled.div`
   width: 100px;
   display: flex;
   align-items: center;
-`
-
-const PriceContainer = styled.div`
-  width: 100px;
-  padding-bottom: 2px;
-  font-size: ${({ theme }) => theme.fontSize.semiText};
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    padding-bottom: 1px;
-    font-size: ${({ theme }) => theme.fontSize.s20};
-  }
 `
 
 const RemoveIconContainer = styled.button`

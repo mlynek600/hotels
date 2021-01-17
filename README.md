@@ -21,6 +21,8 @@ Project is created with:
 - styled-components
 - mock API / Faker.js
 - Axios
+- react-toastify
+- react-loading-skeleton
 
 ## Setup
 
