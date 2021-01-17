@@ -4,11 +4,12 @@ import { HotelsDataType } from '../types/hotels'
 
 export const HotelsContextData = React.createContext<{
   hotels: HotelsDataType | null
-  onChangeNightsNumber?: (
-    name: string,
+  changeNightsAndPrice?: (
+    id: string,
     nights: number,
     totalPrice: number
   ) => void
+  removeHotelCard?: (id: string) => void
 }>({ hotels: null })
 
 export const HotelsContext: React.FC = props => {
@@ -25,14 +26,14 @@ export const HotelsContext: React.FC = props => {
       })
   }, [])
 
-  const onChangeNightsNumber = (
-    name: string,
+  const changeNightsAndPrice = (
+    id: string,
     nights: number,
     totalPrice: number
   ) => {
     if (hotelsData) {
       const updatedHotels = hotelsData.map(hotel => {
-        if (hotel.name === name) {
+        if (hotel.id === id) {
           hotel.nightsNumber = nights
           hotel.totalPrice = totalPrice
         }
@@ -43,9 +44,16 @@ export const HotelsContext: React.FC = props => {
     }
   }
 
+  const removeHotelCard = (id: string) => {
+    if (hotelsData) {
+      const updatedHotels = hotelsData?.filter(hotel => hotel.id !== id)
+      setHotelsData(updatedHotels)
+    }
+  }
+
   return (
     <HotelsContextData.Provider
-      value={{ hotels: hotelsData, onChangeNightsNumber }}
+      value={{ hotels: hotelsData, changeNightsAndPrice, removeHotelCard }}
     >
       {props.children}
     </HotelsContextData.Provider>

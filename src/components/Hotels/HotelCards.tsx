@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
 import { HotelsContextData } from '../../context/hotelsContext'
 import HotelCard from './HotelCard'
@@ -38,7 +39,11 @@ const HotelCards: React.FC = () => {
           <TotalContainer>
             <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
 
-            <BuyButton>Buy</BuyButton>
+            <LinkContainer>
+              <Link to="/payment">
+                <BuyButton>Buy</BuyButton>
+              </Link>
+            </LinkContainer>
           </TotalContainer>
         </>
       </ContentContainer>
@@ -64,16 +69,19 @@ const TotalAmount = styled.div`
   margin-bottom: 20px;
 `
 
+const LinkContainer = styled.div`
+  margin-right: 30px;
+  margin-bottom: 50px;
+`
+
 const BuyButton = styled.button`
   height: 40px;
   width: 200px;
   border: 1px solid black;
   background-color: ${({ theme }) => theme.colors.purpleGrey};
-  color: ${({ theme }) => theme.colors.cloud};
+  color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.s20};
   justify-self: end;
-  margin-right: 30px;
-  margin-bottom: 50px;
 `
 
 export default HotelCards

@@ -5,6 +5,8 @@ export default {
     purple: '#3C1874',
     purpleGrey: '#283747',
     cloud: '#F3F3F3',
+    grey: '#808080',
+    white: '#FFF',
   },
   fonts: {
     light: 'MontserratLight',

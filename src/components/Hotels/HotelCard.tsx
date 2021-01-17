@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { HotelsContextData } from '../../context/hotelsContext'
+import RemoveIcon from '../../images/removeIcon.svg'
 
 type HotelCardProps = {
   id: string
@@ -11,6 +12,7 @@ type HotelCardProps = {
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({
+  id,
   image,
   name,
   price,
@@ -22,10 +24,11 @@ const HotelCard: React.FC<HotelCardProps> = ({
 
   const hotelPrice = nightsCounter * Number(price)
 
-  const updateContext = hotelsData.onChangeNightsNumber
+  const { changeNightsAndPrice, removeHotelCard } = hotelsData
 
   useEffect(() => {
-    updateContext && updateContext(name, nightsCounter, hotelPrice)
+    changeNightsAndPrice &&
+      changeNightsAndPrice(id, nightsCounter, hotelPrice)
   }, [nightsCounter])
 
   // because of lorempixel images problems
@@ -42,6 +45,10 @@ const HotelCard: React.FC<HotelCardProps> = ({
   }
   const onPlusButtonClick = () => setNightsCounter(nightsCounter + 1)
 
+  const onRemoveButtonClick = () => {
+    removeHotelCard && removeHotelCard(id)
+  }
+
   return (
     <Card>
       <ImageContainer>
@@ -54,20 +61,33 @@ const HotelCard: React.FC<HotelCardProps> = ({
         <SubTitle>{description}</SubTitle>
       </InfoContainer>
 
-      <PriceContainer>
-        <MinusButton
-          onClick={onMinusButtonClick}
-          disabled={nightsCounter === 0}
-        >
-          -
-        </MinusButton>
+      <CostsContainer>
+        <ChangeNightsContainer>
+          <MinusButton
+            onClick={onMinusButtonClick}
+            disabled={nightsCounter === 0}
+          >
+            -
+          </MinusButton>
 
-        <NightsNumber>{nightsCounter}</NightsNumber>
+          <NightsNumber>{nightsCounter}</NightsNumber>
 
-        <PlusButton onClick={onPlusButtonClick}>+</PlusButton>
+          <PlusButton
+            onClick={onPlusButtonClick}
+            disabled={nightsCounter > 13}
+          >
+            +
+          </PlusButton>
+        </ChangeNightsContainer>
 
-        <Price>{hotelPrice} $</Price>
-      </PriceContainer>
+        <PriceContainer>
+          <Price>{hotelPrice} $</Price>
+        </PriceContainer>
+      </CostsContainer>
+
+      <RemoveIconContainer onClick={onRemoveButtonClick}>
+        <RemoveIcon />
+      </RemoveIconContainer>
     </Card>
   )
 }
@@ -107,13 +127,14 @@ const Price = styled.p`
   margin-left: 20px;
 `
 
-const PriceContainer = styled.div`
+const CostsContainer = styled.div`
   padding-left: 50px;
   display: flex;
   align-items: center;
   position: absolute;
   right: 20px;
   width: 200px;
+  justify-content: space-between;
 `
 
 const MinusButton = styled.button`
@@ -131,4 +152,19 @@ const NightsNumber = styled.p`
   padding: 0 5px;
 `
 
+const ChangeNightsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100px;
+`
+
+const PriceContainer = styled.div`
+  width: 100px;
+`
+
+const RemoveIconContainer = styled.button`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`
 export default HotelCard
