@@ -30,7 +30,7 @@ Install all packages:
 
 ### `npm i`
 
-Start developing, run:
+To start developing, run:
 
 ### `gatsby develop`
 
