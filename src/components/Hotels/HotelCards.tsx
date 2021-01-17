@@ -1,7 +1,10 @@
 import React, { useContext } from 'react'
+
 import { Link } from 'gatsby'
 import styled from 'styled-components'
+
 import { HotelsContextData } from '../../context/hotelsContext'
+
 import HotelCard from './HotelCard'
 
 const HotelCards: React.FC = () => {
@@ -9,22 +12,25 @@ const HotelCards: React.FC = () => {
 
   const getTotalOrderPrice = () => {
     let result = 0
+
     hotelsData.hotels?.forEach(hotel => {
       result += hotel.totalPrice || 0
     })
+
     return result
   }
 
   const cardElements = hotelsData.hotels?.map(hotel => {
     const { id, name, subtitle, price, image } = hotel
+
     return (
       <HotelCard
         key={id}
         id={id}
-        name={name}
-        subtitle={subtitle}
-        price={price}
         image={image}
+        name={name}
+        price={price}
+        subtitle={subtitle}
       />
     )
   })
@@ -51,9 +57,9 @@ const HotelCards: React.FC = () => {
 const Wrapper = styled.div`
   padding-top: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 `
 
 const ContentContainer = styled.div`
@@ -63,32 +69,24 @@ const ContentContainer = styled.div`
     width: 500px;
   }
 
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    width: 500px;
-  }
-
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     width: 600px;
   }
 `
 
 const TotalContainer = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.s20};
+  width: 100%;
+  margin: 5px 40px 50px 0px;
   justify-self: auto;
-  margin-right: 40px;
-  margin-top: 5px;
-  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 100%;
+  font-size: ${({ theme }) => theme.fontSize.s20};
 `
 
 const TotalAmount = styled.div`
+  margin: 15px 30px 20px 0px;
   text-align: end;
-  margin-top: 15px;
-  margin-right: 30px;
-  margin-bottom: 20px;
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     font-size: ${({ theme }) => theme.fontSize.smallTitle};
@@ -108,7 +106,6 @@ const BuyButton = styled.button`
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.s20};
   justify-self: end;
-
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.2s ease-in-out;
 

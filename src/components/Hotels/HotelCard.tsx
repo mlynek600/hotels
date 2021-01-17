@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
+
 import styled from 'styled-components'
+
 import { HotelsContextData } from '../../context/hotelsContext'
 import RemoveIcon from '../../images/removeIcon.svg'
 
@@ -31,18 +33,19 @@ const HotelCard: React.FC<HotelCardProps> = ({
       changeNightsAndPrice(id, nightsCounter, hotelPrice)
   }, [nightsCounter])
 
-  // because of lorempixel images problems
+  // because of lorempixel ( from mock API / Faker.js ) images loading problems
   const imageLink = image.replace('pixel', 'flickr')
 
-  const uppercaseFirst = (text: string) =>
+  const makeUppercaseFirstLetter = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1)
 
-  const title = uppercaseFirst(name)
-  const description = uppercaseFirst(subtitle)
+  const title = makeUppercaseFirstLetter(name)
+  const description = makeUppercaseFirstLetter(subtitle)
 
   const onMinusButtonClick = () => {
-    if (nightsCounter !== 0) setNightsCounter(nightsCounter - 1)
+    setNightsCounter(nightsCounter - 1)
   }
+
   const onPlusButtonClick = () => setNightsCounter(nightsCounter + 1)
 
   const onRemoveButtonClick = () => {
@@ -93,14 +96,14 @@ const HotelCard: React.FC<HotelCardProps> = ({
 }
 
 const Card = styled.div`
+  height: 90px;
+  width: 90%;
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   display: flex;
-  height: 90px;
   align-items: center;
   position: relative;
-  width: 90%;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
 
@@ -113,13 +116,13 @@ const Card = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    width: 500px;
     height: 100px;
+    width: 500px;
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    width: 600px;
     height: 120px;
+    width: 600px;
   }
 `
 
@@ -160,8 +163,8 @@ const Title = styled.h2`
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    font-size: ${({ theme }) => theme.fontSize.s25};
     padding-bottom: 10px;
+    font-size: ${({ theme }) => theme.fontSize.s25};
   }
 `
 
@@ -178,39 +181,39 @@ const Price = styled.p`
 `
 
 const CostsContainer = styled.div`
+  width: 200px;
   padding-left: 50px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: absolute;
   bottom: 7px;
   right: 30px;
-  width: 200px;
-  justify-content: space-between;
 
   @media (min-width: ${({ theme }) => theme.rwd.mobile.m}) {
     right: 20px;
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    width: 250px;
     right: 0px;
     bottom: 35px;
-    width: 250px;
   }
 `
 
 const MinusButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSize.s20};
   padding-bottom: 3px;
+  font-size: ${({ theme }) => theme.fontSize.s20};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    font-size: ${({ theme }) => theme.fontSize.smallTitle};
     padding-bottom: 5px;
+    font-size: ${({ theme }) => theme.fontSize.smallTitle};
   }
 `
 
 const PlusButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSize.s20};
   padding-bottom: 2px;
+  font-size: ${({ theme }) => theme.fontSize.s20};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     font-size: ${({ theme }) => theme.fontSize.s25};
@@ -218,8 +221,8 @@ const PlusButton = styled.button`
 `
 
 const NightsNumber = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.text};
   padding: 0 5px;
+  font-size: ${({ theme }) => theme.fontSize.text};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     font-size: ${({ theme }) => theme.fontSize.s20};
@@ -227,19 +230,19 @@ const NightsNumber = styled.p`
 `
 
 const ChangeNightsContainer = styled.div`
+  width: 100px;
   display: flex;
   align-items: center;
-  width: 100px;
 `
 
 const PriceContainer = styled.div`
   width: 100px;
-  font-size: ${({ theme }) => theme.fontSize.semiText};
   padding-bottom: 2px;
+  font-size: ${({ theme }) => theme.fontSize.semiText};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    font-size: ${({ theme }) => theme.fontSize.s20};
     padding-bottom: 0px;
+    font-size: ${({ theme }) => theme.fontSize.s20};
   }
 `
 

@@ -1,7 +1,8 @@
 import React from 'react'
+
 import Layout from '../components/layout'
-import { HotelsContext } from '../context/hotelsContext'
 import PaymentForm from '../components/Payment/PaymentForm'
+import { HotelsContext } from '../context/hotelsContext'
 
 const PaymentPage: React.FC = () => {
   return (

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
+
 import axios from 'axios'
+
 import { HotelsDataType } from '../types/hotels'
 
 export const HotelsContextData = React.createContext<{
   hotels: HotelsDataType | null
+
   changeNightsAndPrice?: (
     id: string,
     nights: number,
@@ -47,6 +50,7 @@ export const HotelsContext: React.FC = props => {
   const removeHotelCard = (id: string) => {
     if (hotelsData) {
       const updatedHotels = hotelsData?.filter(hotel => hotel.id !== id)
+
       setHotelsData(updatedHotels)
     }
   }

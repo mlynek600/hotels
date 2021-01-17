@@ -1,7 +1,8 @@
 import React from 'react'
+
+import HotelCards from '../components/Hotels/HotelCards'
 import Layout from '../components/layout'
 import { HotelsContext } from '../context/hotelsContext'
-import HotelCards from '../components/Hotels/HotelCards'
 
 const IndexPage: React.FC = () => {
   return (
