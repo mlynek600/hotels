@@ -6,6 +6,7 @@ import { HotelsDataType } from '../types/hotels'
 
 export const HotelsContextData = React.createContext<{
   hotels: HotelsDataType
+  error: Error | null
 
   changeNightsAndPrice?: (
     id: string,
@@ -13,21 +14,21 @@ export const HotelsContextData = React.createContext<{
     totalPrice: number
   ) => void
   removeHotelCard?: (id: string) => void
-}>({ hotels: null })
+}>({ hotels: null, error: null })
 
 export const HotelsContext: React.FC = props => {
   const [hotelsData, setHotelsData] = useState<HotelsDataType>(null)
 
+  const [error, setError] = useState<Error | null>(null)
+
   useEffect(() => {
     axios
-      .get(
-        'https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotelss'
-      )
+      .get('https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotels')
       .then(response => {
         setHotelsData(response.data)
       })
       .catch(error => {
-        console.log(error)
+        setError(error)
       })
   }, [])
 
@@ -59,7 +60,12 @@ export const HotelsContext: React.FC = props => {
 
   return (
     <HotelsContextData.Provider
-      value={{ hotels: hotelsData, changeNightsAndPrice, removeHotelCard }}
+      value={{
+        hotels: hotelsData,
+        error: error,
+        changeNightsAndPrice,
+        removeHotelCard,
+      }}
     >
       {props.children}
     </HotelsContextData.Provider>

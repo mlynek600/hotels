@@ -5,12 +5,14 @@ import styled from 'styled-components'
 
 import { HotelsContextData } from '../../context/hotelsContext'
 
+import Toast from '../Toast/Toast'
+
 import HotelCard from './HotelCard'
 
 const HotelCards: React.FC = () => {
   const hotelsData = useContext(HotelsContextData)
 
-  const { hotels } = hotelsData
+  const { hotels, error } = hotelsData
 
   const getTotalOrderPrice = () => {
     let result = 0
@@ -37,6 +39,13 @@ const HotelCards: React.FC = () => {
     )
   })
 
+  const toastElement = error && (
+    <Toast
+      message="Something went wrong. Try again later."
+      error={error.message}
+    />
+  )
+
   return (
     <Wrapper>
       <Title>Hotels Ordering</Title>
@@ -55,6 +64,8 @@ const HotelCards: React.FC = () => {
           </TotalContainer>
         </ContentContainer>
       )}
+
+      {toastElement}
     </Wrapper>
   )
 }
