@@ -5,7 +5,7 @@ import axios from 'axios'
 import { HotelsDataType } from '../types/hotels'
 
 export const HotelsContextData = React.createContext<{
-  hotels: HotelsDataType | null
+  hotels: HotelsDataType
 
   changeNightsAndPrice?: (
     id: string,
@@ -20,7 +20,9 @@ export const HotelsContext: React.FC = props => {
 
   useEffect(() => {
     axios
-      .get('https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotels')
+      .get(
+        'https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotelss'
+      )
       .then(response => {
         setHotelsData(response.data)
       })

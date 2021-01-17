@@ -10,17 +10,19 @@ import HotelCard from './HotelCard'
 const HotelCards: React.FC = () => {
   const hotelsData = useContext(HotelsContextData)
 
+  const { hotels } = hotelsData
+
   const getTotalOrderPrice = () => {
     let result = 0
 
-    hotelsData.hotels?.forEach(hotel => {
+    hotels?.forEach(hotel => {
       result += hotel.totalPrice || 0
     })
 
     return result
   }
 
-  const cardElements = hotelsData.hotels?.map(hotel => {
+  const cardElements = hotels?.map(hotel => {
     const { id, name, subtitle, price, image } = hotel
 
     return (
@@ -37,29 +39,38 @@ const HotelCards: React.FC = () => {
 
   return (
     <Wrapper>
+      <Title>Hotels Ordering</Title>
       {cardElements}
 
-      <ContentContainer>
-        <TotalContainer>
-          <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
+      {hotels && (
+        <ContentContainer>
+          <TotalContainer>
+            <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
 
-          <LinkContainer>
-            <Link to="/payment">
-              <BuyButton>Buy</BuyButton>
-            </Link>
-          </LinkContainer>
-        </TotalContainer>
-      </ContentContainer>
+            <LinkContainer>
+              <Link to="/payment">
+                <BuyButton>Buy</BuyButton>
+              </Link>
+            </LinkContainer>
+          </TotalContainer>
+        </ContentContainer>
+      )}
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  padding-top: 50px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`
+
+const Title = styled.h1`
+  margin-bottom: 20px;
+  font-family: ${({ theme }) => theme.fonts.semiBold};
+  color: ${({ theme }) => theme.colors.purple};
 `
 
 const ContentContainer = styled.div`

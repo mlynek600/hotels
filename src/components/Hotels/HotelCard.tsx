@@ -98,7 +98,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
 const Card = styled.div`
   height: 90px;
   width: 90%;
-  margin: 10px;
+  margin: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   display: flex;
@@ -127,12 +127,16 @@ const Card = styled.div`
 `
 
 const ImageContainer = styled.div`
+  height: 70px;
+  width: 112px;
   padding: 5px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    height: 90px;
+    width: 160px;
     padding: 10px 20px;
   }
 `
@@ -241,7 +245,7 @@ const PriceContainer = styled.div`
   font-size: ${({ theme }) => theme.fontSize.semiText};
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    padding-bottom: 0px;
+    padding-bottom: 1px;
     font-size: ${({ theme }) => theme.fontSize.s20};
   }
 `
