@@ -35,7 +35,9 @@ export const HotelsContext: React.FC = props => {
 
           randomFourHotels.push(randomHotel)
         }
-        setHotelsData(randomFourHotels)
+        const uniqueHotels = Array.from(new Set(randomFourHotels))
+
+        setHotelsData(uniqueHotels)
       })
       .catch(error => {
         setError(error)
