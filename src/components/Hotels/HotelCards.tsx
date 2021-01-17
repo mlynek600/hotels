@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 import styled from 'styled-components'
 import { HotelsContextData } from '../../context/hotelsContext'
 import HotelCard from './HotelCard'
-import ContentContainer from '../UI/ContentContainer'
 
 const HotelCards: React.FC = () => {
   const hotelsData = useContext(HotelsContextData)
@@ -32,20 +31,18 @@ const HotelCards: React.FC = () => {
 
   return (
     <Wrapper>
+      {cardElements}
+
       <ContentContainer>
-        <>
-          {cardElements}
+        <TotalContainer>
+          <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
 
-          <TotalContainer>
-            <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
-
-            <LinkContainer>
-              <Link to="/payment">
-                <BuyButton>Buy</BuyButton>
-              </Link>
-            </LinkContainer>
-          </TotalContainer>
-        </>
+          <LinkContainer>
+            <Link to="/payment">
+              <BuyButton>Buy</BuyButton>
+            </Link>
+          </LinkContainer>
+        </TotalContainer>
       </ContentContainer>
     </Wrapper>
   )
@@ -53,20 +50,49 @@ const HotelCards: React.FC = () => {
 
 const Wrapper = styled.div`
   padding-top: 50px;
-  width: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
+
+const ContentContainer = styled.div`
+  width: 380px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.mobile.m}) {
+    width: 500px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+    width: 500px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    width: 600px;
+  }
 `
 
 const TotalContainer = styled.div`
   font-size: ${({ theme }) => theme.fontSize.s20};
-  justify-self: end;
-  margin-right: 30px;
+  justify-self: auto;
+  margin-right: 40px;
+  margin-top: 5px;
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
 `
 
 const TotalAmount = styled.div`
   text-align: end;
+  margin-top: 15px;
   margin-right: 30px;
   margin-bottom: 20px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.smallTitle};
+  }
 `
 
 const LinkContainer = styled.div`
@@ -76,12 +102,24 @@ const LinkContainer = styled.div`
 
 const BuyButton = styled.button`
   height: 40px;
-  width: 200px;
-  border: 1px solid black;
+  width: 120px;
+  border-radius: 15px;
   background-color: ${({ theme }) => theme.colors.purpleGrey};
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.s20};
   justify-self: end;
+
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.2s ease-in-out;
+
+  :hover {
+    box-shadow: 0 4px 10px 0 ${({ theme }) => theme.colors.white};
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    height: 50px;
+    width: 140px;
+  }
 `
 
 export default HotelCards

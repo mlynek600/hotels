@@ -93,35 +93,85 @@ const HotelCard: React.FC<HotelCardProps> = ({
 }
 
 const Card = styled.div`
-  margin: 20px;
+  margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   display: flex;
-  height: 120px;
+  height: 90px;
   align-items: center;
   position: relative;
+  width: 90%;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 5px;
 
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
+
+  @media (min-width: ${({ theme }) => theme.rwd.mobile.s}) {
+    width: 70%;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+    width: 500px;
+    height: 100px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    width: 600px;
+    height: 120px;
+  }
 `
 
 const ImageContainer = styled.div`
-  padding: 10px 20px;
+  padding: 5px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    padding: 10px 20px;
+  }
 `
 
-const InfoContainer = styled.div``
+const InfoContainer = styled.div`
+  align-self: flex-start;
+  padding-top: 10px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+    padding-top: 15px;
+  }
+`
 
 const Image = styled.img`
-  height: 90px;
+  height: 70px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    height: 90px;
+  }
 `
 
-const Title = styled.h2``
+const Title = styled.h2`
+  font-size: ${({ theme }) => theme.fontSize.text};
 
-const SubTitle = styled.p``
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+    padding-bottom: 5px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.s25};
+    padding-bottom: 10px;
+  }
+`
+
+const SubTitle = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.smallText};
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.text};
+  }
+`
 
 const Price = styled.p`
   margin-left: 20px;
@@ -132,24 +182,48 @@ const CostsContainer = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  right: 20px;
+  bottom: 7px;
+  right: 30px;
   width: 200px;
   justify-content: space-between;
+
+  @media (min-width: ${({ theme }) => theme.rwd.mobile.m}) {
+    right: 20px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    right: 0px;
+    bottom: 35px;
+    width: 250px;
+  }
 `
 
 const MinusButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSize.smallTitle};
-  padding-bottom: 5px;
+  font-size: ${({ theme }) => theme.fontSize.s20};
+  padding-bottom: 3px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.smallTitle};
+    padding-bottom: 5px;
+  }
 `
 
 const PlusButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSize.s25};
+  font-size: ${({ theme }) => theme.fontSize.s20};
   padding-bottom: 2px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.s25};
+  }
 `
 
 const NightsNumber = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.s20};
+  font-size: ${({ theme }) => theme.fontSize.text};
   padding: 0 5px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.s20};
+  }
 `
 
 const ChangeNightsContainer = styled.div`
@@ -160,11 +234,23 @@ const ChangeNightsContainer = styled.div`
 
 const PriceContainer = styled.div`
   width: 100px;
+  font-size: ${({ theme }) => theme.fontSize.semiText};
+  padding-bottom: 2px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    font-size: ${({ theme }) => theme.fontSize.s20};
+    padding-bottom: 0px;
+  }
 `
 
 const RemoveIconContainer = styled.button`
   position: absolute;
   right: 10px;
   top: 10px;
+
+  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+    right: 12px;
+    top: 17px;
+  }
 `
 export default HotelCard

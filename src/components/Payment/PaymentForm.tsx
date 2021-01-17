@@ -7,6 +7,7 @@ const PaymentForm: React.FC = () => {
 
   const nameInput = (
     <Input
+      type="text"
       required
       autoFocus
       pattern=".{3,}"
@@ -14,7 +15,9 @@ const PaymentForm: React.FC = () => {
     />
   )
   const addressInput = <Input required />
-  const phoneInput = <Input pattern="[0-9]{9}" title="Format: 123456789" />
+  const phoneInput = (
+    <Input type="tel" pattern="[0-9]{9}" title="Format: 123456789" />
+  )
   const emailInput = <Input required type="email" />
 
   const inputs = [nameInput, addressInput, phoneInput, emailInput]
@@ -70,9 +73,23 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.grey};
   padding: 10px;
 
-  &:focus {
+  :focus {
     border-color: ${({ theme }) => theme.colors.purple};
+    :invalid {
+      border-color: ${({ theme }) => theme.colors.red};
+    }
   }
+  :required {
+    box-shadow: none;
+  }
+
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+  }
+
+  -moz-appearance: textfield !important;
 `
 
 const SubmitButton = styled.button`
