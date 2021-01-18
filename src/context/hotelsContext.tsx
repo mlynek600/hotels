@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import axios from 'axios'
 
-import { HotelsDataType } from '../types/hotels'
+import { HotelsDataType, HotelType } from '../types/hotels'
 
 export const HotelsContextData = React.createContext<{
   hotels: HotelsDataType
@@ -15,12 +15,28 @@ export const HotelsContextData = React.createContext<{
   ) => void
   getHotels?: () => void
   removeHotelCard?: (id: string) => void
-}>({ hotels: null, error: null })
+}>({
+  hotels: null,
+  error: null,
+})
 
 export const HotelsContext: React.FC = props => {
   const [hotelsData, setHotelsData] = useState<HotelsDataType>(null)
 
   const [error, setError] = useState<Error | null>(null)
+
+  const getUniqueHotels = (data: HotelType[]) => {
+    const randomHotels = []
+
+    for (let i = 0; i < 4; i++) {
+      const randomHotel = data[Math.floor(Math.random() * data.length)]
+
+      randomHotels.push(randomHotel)
+    }
+    const uniqueHotels = Array.from(new Set(randomHotels))
+
+    return uniqueHotels
+  }
 
   const getHotels = () => {
     setHotelsData(null)
@@ -28,16 +44,9 @@ export const HotelsContext: React.FC = props => {
     axios
       .get('https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotels')
       .then(response => {
-        const randomFourHotels = []
-        for (let i = 0; i < 4; i++) {
-          const randomHotel =
-            response.data[Math.floor(Math.random() * response.data.length)]
+        const hotelsData = getUniqueHotels(response.data)
 
-          randomFourHotels.push(randomHotel)
-        }
-        const uniqueHotels = Array.from(new Set(randomFourHotels))
-
-        setHotelsData(uniqueHotels)
+        setHotelsData(hotelsData)
       })
       .catch(error => {
         setError(error)

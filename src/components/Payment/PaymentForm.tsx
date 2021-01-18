@@ -19,10 +19,13 @@ const PaymentForm: React.FC = () => {
       title="Minimum 3 characters"
     />
   )
+
   const addressInput = <Input required />
+
   const phoneInput = (
     <Input type="tel" pattern="[0-9]{9}" title="Format: 123456789" />
   )
+
   const emailInput = <Input required type="email" />
 
   const inputs = [nameInput, addressInput, phoneInput, emailInput]
@@ -30,6 +33,7 @@ const PaymentForm: React.FC = () => {
   const rowsElements = labels.map((name, index) => (
     <Row key={name}>
       <Label>{name}</Label>
+
       {inputs[index]}
     </Row>
   ))

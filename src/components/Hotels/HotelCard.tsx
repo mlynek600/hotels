@@ -22,17 +22,19 @@ const HotelCard: React.FC<HotelCardProps> = ({
   subtitle,
 }) => {
   const hotelsData = useContext(HotelsContextData)
-
-  const [nightsCounter, setNightsCounter] = useState(0)
-
-  const [isImageLoaded, setImageLoaded] = useState(false)
+  const { changeNightsAndPrice, removeHotelCard } = hotelsData
 
   const cardRef = useRef<HTMLDivElement>(null)
   const imageContainerRef = useRef<HTMLDivElement>(null)
 
-  const hotelPrice = nightsCounter * Number(price)
+  const cardHeight = cardRef.current?.clientHeight
+  const cardWidth = cardRef.current?.clientWidth
+  const imageContainerWidth = imageContainerRef.current?.clientWidth
 
-  const { changeNightsAndPrice, removeHotelCard } = hotelsData
+  const [nightsCounter, setNightsCounter] = useState(0)
+  const [isImageLoaded, setImageLoaded] = useState(false)
+
+  const hotelPrice = nightsCounter * Number(price)
 
   useEffect(() => {
     changeNightsAndPrice &&
@@ -47,12 +49,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
 
   const title = makeUppercaseFirstLetter(name)
   const description = makeUppercaseFirstLetter(subtitle)
-
-  const onMinusButtonClick = () => {
-    setNightsCounter(nightsCounter - 1)
-  }
-
-  const onPlusButtonClick = () => setNightsCounter(nightsCounter + 1)
 
   const onRemoveButtonClick = () => {
     removeHotelCard && removeHotelCard(id)
@@ -80,7 +76,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
       <CostsContainer>
         <ChangeNightsContainer>
           <MinusButton
-            onClick={onMinusButtonClick}
+            onClick={() => setNightsCounter(nightsCounter - 1)}
             disabled={nightsCounter === 0}
           >
             -
@@ -89,7 +85,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
           <NightsNumber>{nightsCounter}</NightsNumber>
 
           <PlusButton
-            onClick={onPlusButtonClick}
+            onClick={() => setNightsCounter(nightsCounter + 1)}
             disabled={nightsCounter > 13}
           >
             +
@@ -107,11 +103,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
       </RemoveIconContainer>
     </>
   )
-
-  const cardHeight = cardRef.current?.clientHeight
-  const cardWidth = cardRef.current?.clientWidth
-
-  const imageContainerWidth = imageContainerRef.current?.clientWidth
 
   const skeletonElement = (
     <SkeletonTheme color="#FFF" highlightColor="#F3F3F3">

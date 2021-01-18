@@ -69,6 +69,7 @@ const HotelCards: React.FC = () => {
           </TotalContainer>
         </ContentContainer>
       )}
+
       {toastElement}
     </Wrapper>
   )
