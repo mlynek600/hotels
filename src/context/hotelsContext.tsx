@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 import axios from 'axios'
 
-import { HotelsDataType, HotelType } from '../types/hotels'
+import { HotelType, ContextType } from '../types'
 
 export const HotelsContextData = React.createContext<{
-  hotels: HotelsDataType
+  hotels: HotelType[] | null
   error: Error | null
 
   changeNightsAndPrice?: (
@@ -21,7 +21,7 @@ export const HotelsContextData = React.createContext<{
 })
 
 export const HotelsContext: React.FC = props => {
-  const [hotelsData, setHotelsData] = useState<HotelsDataType>(null)
+  const [hotelsData, setHotelsData] = useState<HotelType[] | null>(null)
 
   const [error, setError] = useState<Error | null>(null)
 
@@ -83,16 +83,16 @@ export const HotelsContext: React.FC = props => {
     }
   }
 
+  const contextValues: ContextType = {
+    hotels: hotelsData,
+    error: error,
+    changeNightsAndPrice,
+    getHotels,
+    removeHotelCard,
+  }
+
   return (
-    <HotelsContextData.Provider
-      value={{
-        hotels: hotelsData,
-        error: error,
-        changeNightsAndPrice,
-        getHotels,
-        removeHotelCard,
-      }}
-    >
+    <HotelsContextData.Provider value={contextValues}>
       {props.children}
     </HotelsContextData.Provider>
   )

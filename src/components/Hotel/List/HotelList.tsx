@@ -3,35 +3,27 @@ import React, { useContext } from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 
-import { HotelsContextData } from '../../context/hotelsContext'
+import { HotelsContextData } from '../../../context/hotelsContext'
+import { ContextType } from '../../../types'
+import getOrderPrice from '../../../utils/getOrderPrice'
 
-import { Toast } from '../Toast/Toast'
+import { Toast } from '../../Toast/Toast'
 
-import HotelCard from './HotelCard'
+import HotelCard from '../Card/HotelCard'
 
-const HotelCards: React.FC = () => {
-  const hotelsData = useContext(HotelsContextData)
+const HotelList: React.FC = () => {
+  const hotelsData = useContext(HotelsContextData) as ContextType
 
   const { hotels, error, getHotels } = hotelsData
-
-  const getTotalOrderPrice = () => {
-    let result = 0
-
-    hotels?.forEach(hotel => {
-      result += hotel.totalPrice || 0
-    })
-
-    return result
-  }
 
   const cardElements = hotels?.map(hotel => {
     const { id, name, subtitle, price, image } = hotel
 
     return (
       <HotelCard
-        key={id}
         id={id}
         image={image}
+        key={id}
         name={name}
         price={price}
         subtitle={subtitle}
@@ -54,12 +46,12 @@ const HotelCards: React.FC = () => {
 
       {hotels && (
         <ContentContainer>
-          <ChangeHotelsButton onClick={() => getHotels && getHotels()}>
+          <ChangeHotelsButton onClick={() => getHotels()}>
             <ChangeButtonText>Change hotels</ChangeButtonText>
           </ChangeHotelsButton>
 
           <TotalContainer>
-            <TotalAmount>{getTotalOrderPrice()} $</TotalAmount>
+            <TotalAmount>{getOrderPrice(hotels)} $</TotalAmount>
 
             <LinkContainer>
               <Link to="/payment">
@@ -178,4 +170,4 @@ const ChangeHotelsButton = styled.button`
 
 const ChangeButtonText = styled.p``
 
-export default HotelCards
+export default HotelList

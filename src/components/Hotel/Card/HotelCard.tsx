@@ -3,8 +3,10 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import styled from 'styled-components'
 
-import { HotelsContextData } from '../../context/hotelsContext'
-import RemoveIcon from '../../images/removeIcon.svg'
+import { HotelsContextData } from '../../../context/hotelsContext'
+import RemoveIcon from '../../../images/removeIcon.svg'
+import { ContextType } from '../../../types'
+import makeFirstUppercase from '../../../utils/makeFirstUppercase'
 
 type HotelCardProps = {
   id: string
@@ -21,7 +23,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
   price,
   subtitle,
 }) => {
-  const hotelsData = useContext(HotelsContextData)
+  const hotelsData = useContext(HotelsContextData) as ContextType
   const { changeNightsAndPrice, removeHotelCard } = hotelsData
 
   const cardRef = useRef<HTMLDivElement>(null)
@@ -37,22 +39,14 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const hotelPrice = nightsCounter * Number(price)
 
   useEffect(() => {
-    changeNightsAndPrice &&
-      changeNightsAndPrice(id, nightsCounter, hotelPrice)
+    changeNightsAndPrice(id, nightsCounter, hotelPrice)
   }, [nightsCounter])
 
   // because of lorempixel ( from mock API / Faker.js ) images loading problems
   const imageLink = image.replace('pixel', 'flickr')
 
-  const makeUppercaseFirstLetter = (text: string) =>
-    text.charAt(0).toUpperCase() + text.slice(1)
-
-  const title = makeUppercaseFirstLetter(name)
-  const description = makeUppercaseFirstLetter(subtitle)
-
-  const onRemoveButtonClick = () => {
-    removeHotelCard && removeHotelCard(id)
-  }
+  const title = makeFirstUppercase(name)
+  const description = makeFirstUppercase(subtitle)
 
   const imageElement = (
     <ImageContainer ref={imageContainerRef}>
@@ -98,7 +92,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
         </PriceContainer>
       </CostsContainer>
 
-      <RemoveIconContainer onClick={onRemoveButtonClick}>
+      <RemoveIconContainer onClick={() => removeHotelCard(id)}>
         <RemoveIcon />
       </RemoveIconContainer>
     </>

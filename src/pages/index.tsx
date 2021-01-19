@@ -1,6 +1,6 @@
 import React from 'react'
 
-import HotelCards from '../components/Hotels/HotelCards'
+import HotelList from '../components/Hotel/List/HotelList'
 import Layout from '../components/layout'
 import { HotelsContext } from '../context/hotelsContext'
 
@@ -8,7 +8,7 @@ const IndexPage: React.FC = () => {
   return (
     <Layout>
       <HotelsContext>
-        <HotelCards />
+        <HotelList />
       </HotelsContext>
     </Layout>
   )
