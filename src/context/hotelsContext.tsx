@@ -38,6 +38,12 @@ export const HotelsContext: React.FC = props => {
     return uniqueHotels
   }
 
+  const changeImagesUrls = (hotels: HotelType[]) => {
+    hotels.forEach(
+      hotel => (hotel.image = hotel.image.replace('pixel', 'flickr'))
+    )
+  }
+
   const getHotels = () => {
     setHotelsData(null)
 
@@ -45,6 +51,8 @@ export const HotelsContext: React.FC = props => {
       .get('https://6002ae4f4f17c800175581ee.mockapi.io/api/hotels/hotels')
       .then(response => {
         const hotelsData = getUniqueHotels(response.data)
+
+        changeImagesUrls(hotelsData)
 
         setHotelsData(hotelsData)
       })

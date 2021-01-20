@@ -47,7 +47,7 @@ const HotelList: React.FC = () => {
       {hotels && (
         <ContentContainer>
           <ChangeHotelsButton onClick={() => getHotels()}>
-            <ChangeButtonText>Change hotels</ChangeButtonText>
+            <p>Change hotels</p>
           </ChangeHotelsButton>
 
           <TotalContainer>
@@ -69,10 +69,8 @@ const HotelList: React.FC = () => {
 
 const Wrapper = styled.div`
   padding-top: 20px;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${({ theme }) => theme.multipleStyles.flexCenter}
 `
 
 const Title = styled.h1`
@@ -167,7 +165,5 @@ const ChangeHotelsButton = styled.button`
     margin-left: 0px;
   }
 `
-
-const ChangeButtonText = styled.p``
 
 export default HotelList

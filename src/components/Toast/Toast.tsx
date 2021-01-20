@@ -27,9 +27,11 @@ export const Toast: React.FC<ToastProps> = ({ message, error }) => {
   const toastInfo = (
     <Wrapper>
       <p>{message}</p>
+
       {error && <Error>{error}</Error>}
     </Wrapper>
   )
+
   useEffect(() => {
     toast(toastInfo)
   }, [])

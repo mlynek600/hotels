@@ -43,9 +43,6 @@ export const HotelCard: React.FC<HotelCardProps> = ({
     changeNightsAndPrice(id, nightsNumber, hotelPrice)
   }, [nightsNumber])
 
-  // because of lorempixel ( from mock API / Faker.js ) images loading problems
-  const imageLink = image.replace('pixel', 'flickr')
-
   const onImageLoad = () => setImageLoaded(true)
 
   const cardContent = (
@@ -56,7 +53,8 @@ export const HotelCard: React.FC<HotelCardProps> = ({
         <HotelCardSelect onSelectChange={setNightsNumber} />
 
         <PriceContainer>
-          <Price>{hotelPrice}</Price>
+          <p>{hotelPrice}</p>
+
           <Currency>$</Currency>
         </PriceContainer>
       </CostsContainer>
@@ -80,7 +78,7 @@ export const HotelCard: React.FC<HotelCardProps> = ({
   return (
     <Card ref={cardRef}>
       <HotelCardImage
-        imageLink={imageLink}
+        imageLink={image}
         imageContainerRef={imageContainerRef}
         onImageLoad={onImageLoad}
       />
@@ -137,8 +135,6 @@ const PriceContainer = styled.div`
     font-size: ${({ theme }) => theme.fontSize.s20};
   }
 `
-
-const Price = styled.p``
 
 const Currency = styled.p`
   margin-left: 5px;

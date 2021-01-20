@@ -27,8 +27,8 @@ export const HotelCardSelect: React.FC<HotelCardSelectProps> = ({
   ) => onSelectChange(Number(event.target.value))
 
   return (
-    <Select onChange={handleSelectChange}>
-      <option value="" disabled selected>
+    <Select defaultValue="placeholder" onChange={handleSelectChange}>
+      <option value="placeholder" disabled>
         Nights
       </option>
       {selectItems}

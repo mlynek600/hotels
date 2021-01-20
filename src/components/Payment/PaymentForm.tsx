@@ -5,38 +5,39 @@ import styled from 'styled-components'
 
 import { ToastComponent } from '../Toast/Toast'
 
+import { PaymentFormRow } from './PaymentFormRow'
+
 const PaymentForm: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
-  const labels = ['Name*', 'Address*', 'Phone', 'E-mail*']
-
-  const nameInput = (
-    <Input
-      type="text"
-      required
+  const nameElement = (
+    <PaymentFormRow
       autoFocus
+      isRequired
+      label="Name"
       pattern=".{3,}"
       title="Minimum 3 characters"
+      type="text"
     />
   )
 
-  const addressInput = <Input required />
-
-  const phoneInput = (
-    <Input type="tel" pattern="[0-9]{9}" title="Format: 123456789" />
+  const addressElement = (
+    <PaymentFormRow isRequired label="Address" type="text" />
   )
 
-  const emailInput = <Input required type="email" />
+  const phoneElement = (
+    <PaymentFormRow
+      isRequired
+      label="Phone"
+      pattern="[0-9]{9}"
+      title="Format: 123456789"
+      type="tel"
+    />
+  )
 
-  const inputs = [nameInput, addressInput, phoneInput, emailInput]
-
-  const rowsElements = labels.map((name, index) => (
-    <Row key={name}>
-      <Label>{name}</Label>
-
-      {inputs[index]}
-    </Row>
-  ))
+  const emailElement = (
+    <PaymentFormRow isRequired label="E-mail" type="email" />
+  )
 
   const toastMsg = <ToastMessage>Thank you for your order!</ToastMessage>
 
@@ -52,7 +53,10 @@ const PaymentForm: React.FC = () => {
     <Wrapper>
       <Title>Payment</Title>
       <Form ref={formRef} onSubmit={event => onFormSubmit(event)}>
-        {rowsElements}
+        {nameElement}
+        {addressElement}
+        {phoneElement}
+        {emailElement}
 
         <SubmitButton type="submit">Pay</SubmitButton>
       </Form>
@@ -93,63 +97,6 @@ const Form = styled.form`
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     width: 500px;
     padding-top: 50px;
-  }
-`
-
-const Row = styled.div`
-  height: 30px;
-  margin-bottom: 30px;
-  ${({ theme }) => theme.multipleStyles.flexCenter}
-
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    margin-bottom: 40px;
-  }
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    margin-bottom: 50px;
-  }
-`
-
-const Label = styled.label`
-  width: 65px;
-  font-size: ${({ theme }) => theme.fontSize.smallText};
-
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    width: 100px;
-    font-size: ${({ theme }) => theme.fontSize.bigText};
-  }
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    width: 150px;
-    font-size: ${({ theme }) => theme.fontSize.s25};
-  }
-`
-
-const Input = styled.input`
-  width: 200px;
-  padding: 10px;
-  border-radius: 4px;
-  color: ${({ theme }) => theme.colors.grey};
-  background-color: ${({ theme }) => theme.colors.cloud};
-  font-size: ${({ theme }) => theme.fontSize.verySmall};
-
-  :focus {
-    :invalid {
-      box-shadow: 0 1px 6px 0 rgba(222, 53, 76, 0.5);
-    }
-    :valid {
-      box-shadow: 0 1px 6px 0 rgba(60, 24, 116, 0.5);
-    }
-  }
-
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    width: 240px;
-    font-size: ${({ theme }) => theme.fontSize.smallText};
-  }
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    width: 280px;
-    font-size: ${({ theme }) => theme.fontSize.semiText};
   }
 `
 
