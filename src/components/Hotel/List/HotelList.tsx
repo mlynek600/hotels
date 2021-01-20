@@ -145,10 +145,10 @@ const BuyButton = styled.button`
 `
 
 const ChangeHotelsButton = styled.button`
-  height: 30px;
-  width: 120px;
+  height: 40px;
+  width: 140px;
   margin-top: 25px;
-  margin-left: 25px;
+  margin-left: 35px;
   position: absolute;
   border-radius: 15px;
   background-color: ${({ theme }) => theme.colors.white};
@@ -158,6 +158,10 @@ const ChangeHotelsButton = styled.button`
 
   :hover {
     box-shadow: 0 4px 10px 0 ${({ theme }) => theme.colors.white};
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.mobile.s}) {
+    margin-left: 25px;
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {

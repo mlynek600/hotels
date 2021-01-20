@@ -27,7 +27,6 @@ const PaymentForm: React.FC = () => {
 
   const phoneElement = (
     <PaymentFormRow
-      isRequired
       label="Phone"
       pattern="[0-9]{9}"
       title="Format: 123456789"
