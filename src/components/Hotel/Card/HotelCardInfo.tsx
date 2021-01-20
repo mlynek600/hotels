@@ -35,13 +35,20 @@ const InfoContainer = styled.div`
 `
 
 const Title = styled.h2`
+  max-width: 160px;
   font-size: ${({ theme }) => theme.fontSize.text};
 
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
+  @media (min-width: ${({ theme }) => theme.rwd.mobile.s}) {
+    max-width: 200px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.rwd.mobile.m}) {
+    max-width: 400px;
     padding-bottom: 5px;
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
+    max-width: 500px;
     padding-bottom: 10px;
     font-size: ${({ theme }) => theme.fontSize.s25};
   }

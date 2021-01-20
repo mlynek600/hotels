@@ -7,7 +7,7 @@ import { HotelsContextData } from '../../../context/hotelsContext'
 import RemoveIcon from '../../../images/removeIcon.svg'
 import { ContextType } from '../../../types'
 
-import { HotelCardImage, HotelCardInfo } from './'
+import { HotelCardImage, HotelCardInfo, HotelCardSelect } from './'
 
 type HotelCardProps = {
   id: string
@@ -53,23 +53,7 @@ export const HotelCard: React.FC<HotelCardProps> = ({
       <HotelCardInfo name={name} subtitle={subtitle} />
 
       <CostsContainer>
-        <ChangeNightsContainer>
-          <MinusButton
-            onClick={() => setNightsNumber(nightsNumber - 1)}
-            disabled={nightsNumber === 0}
-          >
-            -
-          </MinusButton>
-
-          <NightsNumber>{nightsNumber}</NightsNumber>
-
-          <PlusButton
-            onClick={() => setNightsNumber(nightsNumber + 1)}
-            disabled={nightsNumber > 13}
-          >
-            +
-          </PlusButton>
-        </ChangeNightsContainer>
+        <HotelCardSelect onSelectChange={setNightsNumber} />
 
         <PriceContainer>
           <Price>{hotelPrice}</Price>
@@ -175,50 +159,9 @@ const CostsContainer = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    width: 250px;
     right: 5px;
     bottom: 10px;
   }
-`
-
-const MinusButton = styled.button`
-  height: 15px;
-  width: 20px;
-  font-size: ${({ theme }) => theme.fontSize.s20};
-  ${({ theme }) => theme.multipleStyles.flexCenter}
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    padding-bottom: 5px;
-    font-size: ${({ theme }) => theme.fontSize.smallTitle};
-  }
-`
-
-const PlusButton = styled.button`
-  height: 15px;
-  width: 20px;
-  font-size: ${({ theme }) => theme.fontSize.s20};
-  ${({ theme }) => theme.multipleStyles.flexCenter}
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    font-size: ${({ theme }) => theme.fontSize.s25};
-  }
-`
-
-const NightsNumber = styled.p`
-  padding: 0 10px;
-  width: 15px;
-  color: ${({ theme }) => theme.colors.grey};
-  font-size: ${({ theme }) => theme.fontSize.text};
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    font-size: ${({ theme }) => theme.fontSize.s20};
-  }
-`
-
-const ChangeNightsContainer = styled.div`
-  width: 100px;
-  display: flex;
-  align-items: center;
 `
 
 const RemoveIconContainer = styled.button`

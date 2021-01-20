@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   
-  body, h1, h2, h3, h4, h5, h6, p {
+  body, h1, h2, h3, h4, h5, h6, p, select {
     margin: 0;
     font-weight: normal;
     font-family: MontserratRegular;
