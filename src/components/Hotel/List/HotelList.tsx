@@ -9,7 +9,7 @@ import getOrderPrice from '../../../utils/getOrderPrice'
 
 import { Toast } from '../../Toast/Toast'
 
-import HotelCard from '../Card/HotelCard'
+import { HotelCard } from '../Card/HotelCard'
 
 const HotelList: React.FC = () => {
   const hotelsData = useContext(HotelsContextData) as ContextType

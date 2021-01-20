@@ -64,10 +64,8 @@ const PaymentForm: React.FC = () => {
 
 const Wrapper = styled.div`
   margin-top: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  ${({ theme }) => theme.multipleStyles.flexCenter}
 `
 
 const Title = styled.h1`
@@ -79,14 +77,13 @@ const Title = styled.h1`
 const Form = styled.form`
   height: 350px;
   width: 320px;
-  padding-top: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding-top: 20px;
   border-color: ${({ theme }) => theme.colors.cloud};
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: white;
+  flex-direction: column;
+  ${({ theme }) => theme.multipleStyles.flexCenter}
 
   @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
     height: 400px;
@@ -94,17 +91,15 @@ const Form = styled.form`
   }
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    height: 400px;
     width: 500px;
+    padding-top: 50px;
   }
 `
 
 const Row = styled.div`
   height: 30px;
   margin-bottom: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ theme }) => theme.multipleStyles.flexCenter}
 
   @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
     margin-bottom: 40px;

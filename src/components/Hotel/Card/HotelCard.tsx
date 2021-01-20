@@ -8,6 +8,8 @@ import RemoveIcon from '../../../images/removeIcon.svg'
 import { ContextType } from '../../../types'
 import makeFirstUppercase from '../../../utils/makeFirstUppercase'
 
+import { HotelCardImage } from './'
+
 type HotelCardProps = {
   id: string
   image: string
@@ -16,7 +18,7 @@ type HotelCardProps = {
   subtitle: string
 }
 
-const HotelCard: React.FC<HotelCardProps> = ({
+export const HotelCard: React.FC<HotelCardProps> = ({
   id,
   image,
   name,
@@ -33,14 +35,14 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const cardWidth = cardRef.current?.clientWidth
   const imageContainerWidth = imageContainerRef.current?.clientWidth
 
-  const [nightsCounter, setNightsCounter] = useState(0)
+  const [nightsNumber, setNightsNumber] = useState(0)
   const [isImageLoaded, setImageLoaded] = useState(false)
 
-  const hotelPrice = nightsCounter * Number(price)
+  const hotelPrice = nightsNumber * Number(price)
 
   useEffect(() => {
-    changeNightsAndPrice(id, nightsCounter, hotelPrice)
-  }, [nightsCounter])
+    changeNightsAndPrice(id, nightsNumber, hotelPrice)
+  }, [nightsNumber])
 
   // because of lorempixel ( from mock API / Faker.js ) images loading problems
   const imageLink = image.replace('pixel', 'flickr')
@@ -48,16 +50,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const title = makeFirstUppercase(name)
   const description = makeFirstUppercase(subtitle)
 
-  const imageElement = (
-    <ImageContainer ref={imageContainerRef}>
-      <Image
-        src={imageLink}
-        onLoad={() => {
-          setImageLoaded(true)
-        }}
-      ></Image>
-    </ImageContainer>
-  )
+  const onImageLoad = () => setImageLoaded(true)
 
   const cardContent = (
     <>
@@ -70,17 +63,17 @@ const HotelCard: React.FC<HotelCardProps> = ({
       <CostsContainer>
         <ChangeNightsContainer>
           <MinusButton
-            onClick={() => setNightsCounter(nightsCounter - 1)}
-            disabled={nightsCounter === 0}
+            onClick={() => setNightsNumber(nightsNumber - 1)}
+            disabled={nightsNumber === 0}
           >
             -
           </MinusButton>
 
-          <NightsNumber>{nightsCounter}</NightsNumber>
+          <NightsNumber>{nightsNumber}</NightsNumber>
 
           <PlusButton
-            onClick={() => setNightsCounter(nightsCounter + 1)}
-            disabled={nightsCounter > 13}
+            onClick={() => setNightsNumber(nightsNumber + 1)}
+            disabled={nightsNumber > 13}
           >
             +
           </PlusButton>
@@ -110,7 +103,11 @@ const HotelCard: React.FC<HotelCardProps> = ({
 
   return (
     <Card ref={cardRef}>
-      {imageElement}
+      <HotelCardImage
+        imageLink={imageLink}
+        imageContainerRef={imageContainerRef}
+        onImageLoad={onImageLoad}
+      />
 
       {isImageLoaded ? cardContent : skeletonElement}
     </Card>
@@ -148,37 +145,12 @@ const Card = styled.div`
   }
 `
 
-const ImageContainer = styled.div`
-  height: 70px;
-  width: 112px;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    height: 90px;
-    width: 160px;
-    padding: 10px 20px;
-  }
-`
-
 const InfoContainer = styled.div`
   align-self: flex-start;
   padding-top: 10px;
 
   @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
     padding-top: 15px;
-  }
-`
-
-const Image = styled.img`
-  height: 70px;
-  border-radius: 10%;
-  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.2);
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    height: 90px;
   }
 `
 
@@ -250,10 +222,8 @@ const CostsContainer = styled.div`
 const MinusButton = styled.button`
   height: 15px;
   width: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: ${({ theme }) => theme.fontSize.s20};
+  ${({ theme }) => theme.multipleStyles.flexCenter}
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     padding-bottom: 5px;
@@ -265,9 +235,7 @@ const PlusButton = styled.button`
   height: 15px;
   width: 20px;
   font-size: ${({ theme }) => theme.fontSize.s20};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ theme }) => theme.multipleStyles.flexCenter}
 
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     font-size: ${({ theme }) => theme.fontSize.s25};
@@ -301,4 +269,3 @@ const RemoveIconContainer = styled.button`
     top: 17px;
   }
 `
-export default HotelCard

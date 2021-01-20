@@ -1,3 +1,5 @@
+import { css } from 'styled-components'
+
 export default {
   colors: {
     red: '#DE354C',
@@ -45,5 +47,12 @@ export default {
       l: '1440px',
       xl: '1600px',
     },
+  },
+  multipleStyles: {
+    flexCenter: css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `,
   },
 }
