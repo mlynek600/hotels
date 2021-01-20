@@ -6,9 +6,8 @@ import styled from 'styled-components'
 import { HotelsContextData } from '../../../context/hotelsContext'
 import RemoveIcon from '../../../images/removeIcon.svg'
 import { ContextType } from '../../../types'
-import makeFirstUppercase from '../../../utils/makeFirstUppercase'
 
-import { HotelCardImage } from './'
+import { HotelCardImage, HotelCardInfo } from './'
 
 type HotelCardProps = {
   id: string
@@ -47,18 +46,11 @@ export const HotelCard: React.FC<HotelCardProps> = ({
   // because of lorempixel ( from mock API / Faker.js ) images loading problems
   const imageLink = image.replace('pixel', 'flickr')
 
-  const title = makeFirstUppercase(name)
-  const description = makeFirstUppercase(subtitle)
-
   const onImageLoad = () => setImageLoaded(true)
 
   const cardContent = (
     <>
-      <InfoContainer>
-        <Title>{title} Hotel</Title>
-
-        <SubTitle>{description}</SubTitle>
-      </InfoContainer>
+      <HotelCardInfo name={name} subtitle={subtitle} />
 
       <CostsContainer>
         <ChangeNightsContainer>
@@ -142,36 +134,6 @@ const Card = styled.div`
   @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
     height: 120px;
     width: 650px;
-  }
-`
-
-const InfoContainer = styled.div`
-  align-self: flex-start;
-  padding-top: 10px;
-
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    padding-top: 15px;
-  }
-`
-
-const Title = styled.h2`
-  font-size: ${({ theme }) => theme.fontSize.text};
-
-  @media (min-width: ${({ theme }) => theme.rwd.tablet.s}) {
-    padding-bottom: 5px;
-  }
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    padding-bottom: 10px;
-    font-size: ${({ theme }) => theme.fontSize.s25};
-  }
-`
-
-const SubTitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.smallText};
-
-  @media (min-width: ${({ theme }) => theme.rwd.desktop.s}) {
-    font-size: ${({ theme }) => theme.fontSize.text};
   }
 `
 

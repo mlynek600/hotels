@@ -14,13 +14,11 @@ export const HotelCardImage: React.FC<HotelCardImageProps> = ({
   imageContainerRef,
 
   onImageLoad,
-}) => {
-  return (
-    <ImageContainer ref={imageContainerRef}>
-      <Image src={imageLink} onLoad={onImageLoad}></Image>
-    </ImageContainer>
-  )
-}
+}) => (
+  <ImageContainer ref={imageContainerRef}>
+    <Image src={imageLink} onLoad={onImageLoad}></Image>
+  </ImageContainer>
+)
 
 const ImageContainer = styled.div`
   padding: 5px 10px;
