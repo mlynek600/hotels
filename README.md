@@ -8,7 +8,7 @@
 
 ## General info
 
-Hotels ordering app.
+Hotels booking app.
 
 ## Technologies
 
